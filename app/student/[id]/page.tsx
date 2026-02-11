@@ -3,6 +3,7 @@
 export const runtime = 'edge';
 import { useState } from "react";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 // Added params so Next.js knows this is a dynamic route
 export default function WatchVideoPage({ params }: { params: { id: string } }) {
@@ -18,7 +19,7 @@ export default function WatchVideoPage({ params }: { params: { id: string } }) {
     e.preventDefault();
     
     try {
-      const res = await fetch("http://localhost:5000/api/student/register", {
+      const res = await fetch(`${apiUrl}/api/student/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)

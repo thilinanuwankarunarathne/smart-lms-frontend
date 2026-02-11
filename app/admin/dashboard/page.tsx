@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function AdminDashboard() {
   const [view, setView] = useState("add-video"); // "add-video" or "students"
   const [students, setStudents] = useState([]);
@@ -12,7 +14,7 @@ export default function AdminDashboard() {
     if (!token) router.push("/admin/login");
 
     if (view === "students") {
-      fetch("http://localhost:5000/api/admin/students", {
+      fetch(`${apiUrl}/api/admin/students`, {
         headers: { "Authorization": `Bearer ${token}` }
       })
       .then(res => res.json())

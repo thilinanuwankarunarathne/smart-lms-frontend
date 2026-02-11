@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export default function StudentVideoList() {
   const [videos, setVideos] = useState([]);
 
@@ -9,7 +11,7 @@ export default function StudentVideoList() {
     // Fetch the videos from your public Node API
     const fetchVideos = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/admin/videos");
+        const res = await fetch(`${apiUrl}/api/admin/videos`);
         if (res.ok) {
           const data = await res.json();
           setVideos(data);
