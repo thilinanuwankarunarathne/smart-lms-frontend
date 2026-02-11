@@ -25,7 +25,7 @@ export default function StudentVideoList() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-8">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl font-bold border-b-4 border-slate-900 pb-4 mb-8">
-          Kandy EPS Topik - Available Lessons
+          Smart Lms - Available Lessons
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
