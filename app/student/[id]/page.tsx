@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 
+
 // Added params so Next.js knows this is a dynamic route
 export default function WatchVideoPage({ params }: { params: { id: string } }) {
   const [isRegistered, setIsRegistered] = useState(false);
