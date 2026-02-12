@@ -95,12 +95,12 @@ export default function Home() {
                 Welcome to the Future
               </div>
               <h1 className="text-7xl font-black text-slate-900 tracking-tighter italic leading-none">
-                KANDY<br/>
+                Learning Styles<br/>
                 <span className="text-indigo-600">LMS</span>
               </h1>
             </div>
             <p className="text-xl text-slate-600 font-medium max-w-md leading-relaxed">
-              Master the Korean language with our smart, adaptive learning system. Join live classes and track your progress in real-time.
+              Master the learning process with our smart, adaptive learning system. Join live classes and track your progress in real-time.
             </p>
             
             <div className="flex flex-wrap gap-3">
@@ -212,7 +212,7 @@ export default function Home() {
               {role === 'student' && (
                 <div className="mt-8 text-center">
                   <p className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-wide">
-                    {isLogin ? "New to Kandy LMS?" : "Already a member?"}
+                    {isLogin ? "New to Learning Styles?" : "Already a member?"}
                   </p>
                   <button 
                     onClick={() => setIsLogin(!isLogin)} 
