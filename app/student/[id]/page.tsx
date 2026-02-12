@@ -50,7 +50,7 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
       
       {/* Navigation */}
       <nav className="h-16 bg-white border-b border-slate-200 flex justify-between items-center px-6 lg:px-10 sticky top-0 z-50">
-        <h1 className="font-black text-xl tracking-tighter text-slate-900">KANDY<span className="text-indigo-600">LMS</span></h1>
+        <h1 className="font-black text-xl tracking-tighter text-slate-900">Learning<span className="text-indigo-600">Styles</span></h1>
         <button onClick={() => router.push("/student")} className="text-xs font-bold text-slate-500 hover:text-indigo-600 transition-colors uppercase tracking-widest">
           ← Back to Library
         </button>

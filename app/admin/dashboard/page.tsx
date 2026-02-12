@@ -33,7 +33,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
-    if (!token) router.push("/admin/login");
+    if (!token) router.push("/");
 
     if (view === "students") {
       fetch(
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
                       value={videoData.title}
                       required
                       placeholder="e.g. EPS Topik Grammar"
-                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold"
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({ ...videoData, title: e.target.value })
                       }
@@ -314,7 +314,7 @@ export default function AdminDashboard() {
                       value={videoData.name}
                       required
                       placeholder="e.g. Mr. Kalinga"
-                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold"
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({ ...videoData, name: e.target.value })
                       }
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
                       value={videoData.link}
                       required
                       placeholder="https://zoom.us/..."
-                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold"
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({ ...videoData, link: e.target.value })
                       }
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
                       type="datetime-local"
                       required
                       value={videoData.class_date}
-                      className="w-full p-4 rounded-2xl bg-indigo-50 border-2 border-indigo-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold"
+                      className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({
                           ...videoData,
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                     required
                     placeholder="What is this lesson about?"
                     rows={3}
-                    className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-medium"
+                    className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                     onChange={(e) =>
                       setVideoData({
                         ...videoData,
@@ -466,13 +466,16 @@ export default function AdminDashboard() {
                           VIEW AI AUDIT
                         </button>
                       </td>
-                      <td>    <button
+                      <td>
+                        {" "}
+                        <button
                           onClick={() => handleDelete(student.id, student.name)}
                           className="bg-red-50 text-red-500 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
                           title="Delete Student"
                         >
                           <span className="text-lg">×</span>
-                        </button></td>
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
