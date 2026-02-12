@@ -24,3 +24,38 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Only show the report container and its children */
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+
+  /* Position the report at the very top left of the page */
+  .print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Hide buttons and interactive elements within the report */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure background colors (like the progress bars) actually print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

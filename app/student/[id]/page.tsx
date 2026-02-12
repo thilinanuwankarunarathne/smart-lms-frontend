@@ -14,7 +14,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
   const [classData, setClassData] = useState<any>(null);
   const router = useRouter();
 
-  // 1. Auth Check & Data Fetch
   useEffect(() => {
     const token = localStorage.getItem("studentToken");
     if (!token) {
@@ -29,16 +28,14 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
         if (res.ok) {
           const data = await res.json();
           setClassData(data);
-          console.log("Class details fetched:", data); // DEBUG LOG
         }
       } catch (error) {
         console.error("Failed to fetch class details");
       }
     };
     fetchClassDetails();
-  }, [params.id, router]);
+  }, [id, router]);
 
-  // Helper to format date safely (handles nulls)
   const formatClassTime = (dateStr: string) => {
     if (!dateStr) return "Schedule TBD";
     return new Date(dateStr).toLocaleString('en-US', {
@@ -61,7 +58,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
 
       <main className="max-w-6xl mx-auto p-6 lg:p-10">
         
-        {/* --- TAB SWITCHER (Uniform Color) --- */}
         <div className="flex border-b-2 border-slate-200 mb-8 overflow-x-auto">
           {['auditory', 'visual', 'kinesthetic'].map((tab) => (
             <button 
@@ -80,7 +76,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* --- LEFT: CLASS INFORMATION (Uniform Design) --- */}
           <div className="lg:col-span-8 space-y-6">
             
             {/* Main Class Card */}
@@ -95,7 +90,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
               </div>
 
               <div className="p-8 space-y-8">
-                {/* Specific Instruction based on Tab */}
                 <div className="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-md">
                   <h3 className="text-indigo-900 font-bold uppercase text-xs mb-1">
                     {activeTab} Focus
@@ -107,7 +101,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
                   </p>
                 </div>
 
-                {/* Class Details Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Date & Time</p>
@@ -121,7 +114,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
                   </div>
                 </div>
 
-                {/* Join Button */}
                 <a 
                   href={classData?.link || "#"} 
                   target="_blank" 
@@ -136,14 +128,11 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
               </div>
             </div>
 
-            {/* Description Box */}
             <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Lesson Description</h3>
                <p className="text-slate-600 font-medium leading-relaxed">{classData?.description || "No description provided."}</p>
             </div>
           </div>
-
-          {/* --- RIGHT: RELEVANT TEST BUTTON (Dynamic) --- */}
           <div className="lg:col-span-4">
             <div className="sticky top-24 bg-white rounded-2xl border border-slate-200 shadow-lg p-6">
               <div className="mb-6">
@@ -151,7 +140,6 @@ export default function WatchVideoPage({ params }: { params: Promise<{ id: strin
                 <p className="text-slate-500 text-sm font-bold">Complete the test for the {activeTab} section.</p>
               </div>
 
-              {/* DYNAMIC BUTTON BASED ON TAB */}
               {activeTab === 'auditory' && (
                 <Link href="/student/test/auditory" className="block group">
                   <div className="bg-slate-50 border-2 border-slate-200 p-4 rounded-xl flex items-center gap-4 hover:border-indigo-600 hover:bg-indigo-50 transition-all">

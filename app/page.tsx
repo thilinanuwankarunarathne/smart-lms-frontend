@@ -5,12 +5,10 @@ import { useRouter } from "next/navigation";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Home() {
-  // UI State
   const [role, setRole] = useState<"student" | "admin">("student");
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  // Data State
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,7 +25,6 @@ export default function Home() {
 
     try {
       if (role === "student") {
-        // --- STUDENT LOGIC ---
         const endpoint = isLogin ? "/api/student/login" : "/api/student/register";
         const res = await fetch(`${apiUrl}${endpoint}`, {
           method: "POST",
@@ -45,7 +42,7 @@ export default function Home() {
           localStorage.setItem("studentToken", data.token);
           localStorage.setItem("studentName", data.name || formData.name);
           localStorage.setItem("studentId", data.studentId);
-          console.log("Student login successful, token stored:", data.studentId); // DEBUG LOG
+          console.log("Student login successful, token stored:", data.studentId);
           const token = localStorage.getItem("studentToken");
           const studentId = localStorage.getItem("studentId");
           router.push("/student");
@@ -54,7 +51,6 @@ export default function Home() {
         }
 
       } else {
-        // --- ADMIN LOGIC ---
         const res = await fetch(`${apiUrl}/api/admin/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -83,7 +79,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#f8fafc] bg-[radial-gradient(#e0e7ff_1px,transparent_1px)] [background-size:16px_16px] flex flex-col font-sans">
       
-      {/* Mobile Branding (Visible only on small screens) */}
       <div className="lg:hidden p-6 text-center pt-10">
         <h1 className="text-4xl font-black text-slate-900 tracking-tighter italic">
           KANDY<span className="text-indigo-600">LMS</span>
@@ -94,7 +89,6 @@ export default function Home() {
       <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
         <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-16 items-center">
           
-          {/* Left Column: Desktop Branding */}
           <div className="hidden lg:flex flex-col justify-center h-full space-y-8">
             <div>
               <div className="inline-block bg-indigo-100 text-indigo-700 font-black px-3 py-1 rounded-full text-xs uppercase tracking-widest mb-4">
@@ -109,7 +103,6 @@ export default function Home() {
               Master the Korean language with our smart, adaptive learning system. Join live classes and track your progress in real-time.
             </p>
             
-            {/* Feature Pills */}
             <div className="flex flex-wrap gap-3">
               <div className="flex items-center gap-2 bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-sm">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -126,13 +119,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column: The "Smart" Login Card */}
           <div className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl w-full overflow-hidden ring-1 ring-slate-900/5 relative">
             
-            {/* Decoration Gradient */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
-            {/* Role Switcher */}
             <div className="flex p-2 gap-2 bg-slate-50/50 m-2 rounded-2xl">
               <button 
                 onClick={() => setRole("student")}
@@ -162,7 +152,6 @@ export default function Home() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 
-                {/* --- STUDENT REGISTRATION FIELDS --- */}
                 {role === 'student' && !isLogin && (
                   <>
                     <div className="relative group">
@@ -180,8 +169,6 @@ export default function Home() {
                     </div>
                   </>
                 )}
-
-                {/* --- STUDENT EMAIL --- */}
                 {role === 'student' && (
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -191,7 +178,6 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* --- ADMIN USERNAME --- */}
                 {role === 'admin' && (
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -201,7 +187,6 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* --- SHARED PASSWORD --- */}
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <svg className="h-5 w-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
@@ -224,7 +209,6 @@ export default function Home() {
 
               </form>
 
-              {/* Student Register Toggle */}
               {role === 'student' && (
                 <div className="mt-8 text-center">
                   <p className="text-slate-400 text-xs font-bold mb-2 uppercase tracking-wide">

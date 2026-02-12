@@ -11,16 +11,14 @@ export default function StudentVideoList() {
   const router = useRouter();
 
   useEffect(() => {
-    // 1. Security Check: Redirect if no token found
     const token = localStorage.getItem("studentToken");
     const name = localStorage.getItem("studentName");
     if (!token) {
-      router.push("/"); // Go back to login
+      router.push("/"); 
     } else {
       setStudentName(name || "Student");
     }
 
-    // 2. Fetch Data
     const fetchVideos = async () => {
       try {
         const res = await fetch(`${apiUrl}/api/admin/videos`);
@@ -35,7 +33,6 @@ export default function StudentVideoList() {
     fetchVideos();
   }, [router]);
 
-  // Helper for badges
   const getStatus = (dateString: string) => {
     if (!dateString) return null;
     const classDate = new Date(dateString);
@@ -80,7 +77,6 @@ export default function StudentVideoList() {
             <Link href={`/student/${video.id}`} key={video.id} className="block group">
               <div className="bg-white border-4 border-slate-900 h-full flex flex-col shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] group-hover:-translate-y-2 group-hover:shadow-[12px_12px_0px_0px_rgba(79,70,229,1)] transition-all duration-300 rounded-2xl overflow-hidden">
                 
-                {/* Thumbnail */}
                 <div className="w-full aspect-video bg-slate-900 relative flex items-center justify-center overflow-hidden">
                   <img 
                     src={`https://img.youtube.com/vi/${video.link.split('v=')[1]}/0.jpg`} 
@@ -99,7 +95,6 @@ export default function StudentVideoList() {
                   </div>
                 </div>
 
-                {/* Details */}
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-2 text-indigo-600 mb-2">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
