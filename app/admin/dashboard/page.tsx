@@ -1,9 +1,8 @@
 "use client";
 export const runtime = "edge";
-import { useState, useEffect,useRef  } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,9 +17,8 @@ export default function AdminDashboard() {
   const [reportLoading, setReportLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 10; 
+  const itemsPerPage = 10;
   const reportRef = useRef<HTMLDivElement>(null);
-
 
   const [videoData, setVideoData] = useState({
     title: "",
@@ -101,6 +99,29 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDelete = async (studentId: number, studentName: string) => {
+    if (!window.confirm(`Are you sure you want to remove ${studentName}?`))
+      return;
+
+    const token = localStorage.getItem("adminToken");
+    try {
+      const res = await fetch(`${apiUrl}/api/admin/students/${studentId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.ok) {
+        setStudents(students.filter((s: any) => s.id !== studentId));
+        alert("Student removed successfully.");
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error || "Delete failed.");
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("Connection error.");
+    }
+  };
   const handleLogout = async () => {
     const token = localStorage.getItem("adminToken");
 
@@ -117,7 +138,6 @@ export default function AdminDashboard() {
       window.location.href = "/";
     }
   };
-
 
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,7 +178,7 @@ export default function AdminDashboard() {
       <aside className="w-64 bg-slate-900 text-white flex-col hidden md:flex sticky top-0 h-screen">
         <div className="p-8 border-b border-slate-800">
           <h1 className="text-2xl font-black tracking-tighter">
-            KANDY<span className="text-indigo-400">LMS</span>
+            Learning<span className="text-indigo-400">Styles</span>
           </h1>
           <p className="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">
             Admin Control
@@ -418,6 +438,9 @@ export default function AdminDashboard() {
                     <th className="pb-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                       Contact
                     </th>
+                    <th className="pb-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -443,6 +466,13 @@ export default function AdminDashboard() {
                           VIEW AI AUDIT
                         </button>
                       </td>
+                      <td>    <button
+                          onClick={() => handleDelete(student.id, student.name)}
+                          className="bg-red-50 text-red-500 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                          title="Delete Student"
+                        >
+                          <span className="text-lg">×</span>
+                        </button></td>
                     </tr>
                   ))}
                 </tbody>
@@ -713,7 +743,6 @@ export default function AdminDashboard() {
                               "{aiReport.ai_suggestion}"
                             </p>
                           </div>
-
                         </>
                       )
                     )}
