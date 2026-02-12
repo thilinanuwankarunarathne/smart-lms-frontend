@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Smart Lms",
-  description: "Smart Lms is a simple learning management system built with Next.js and Tailwind CSS. It allows students to watch video lessons and complete assessments, while admins can manage video content through an intuitive dashboard.",
+  title: "Learning Styles",
+  description: "Learning Styles is a simple learning management system built with Next.js and Tailwind CSS. It allows students to watch video lessons and complete assessments, while admins can manage video content through an intuitive dashboard.",
 };
 
 export default function RootLayout({
