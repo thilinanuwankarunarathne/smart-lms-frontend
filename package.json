@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.15.8",
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "recharts": "^3.7.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
