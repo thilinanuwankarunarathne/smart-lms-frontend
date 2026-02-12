@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Learning Styles",
-  description: "Learning Styles is a simple learning management system built with Next.js and Tailwind CSS. It allows students to watch video lessons and complete assessments, while admins can manage video content through an intuitive dashboard.",
+  description: "Learning Styles is a simple learning management system built with the latest technologies with AI-powered features. It allows students to watch video lessons and complete assessments, and measures their learning style based on their interactions. Admins can manage video content, view student progress, and access AI-generated insights to optimize the learning experience.",
 };
 
 export default function RootLayout({
