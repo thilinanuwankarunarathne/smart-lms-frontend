@@ -81,7 +81,7 @@ export default function Home() {
       
       <div className="lg:hidden p-6 text-center pt-10">
         <h1 className="text-4xl font-black text-slate-900 tracking-tighter italic">
-          KANDY<span className="text-indigo-600">LMS</span>
+          Learning<span className="text-indigo-600">Styles</span>
         </h1>
         <p className="text-sm text-slate-500 font-bold mt-2">Smart Learning Portal</p>
       </div>
