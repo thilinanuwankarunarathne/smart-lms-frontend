@@ -14,6 +14,9 @@ export default function AdminDashboard() {
   const [selectedStudent, setSelectedStudent] = useState<any>(null);
   const [aiReport, setAiReport] = useState<any>(null);
   const [reportLoading, setReportLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+const [totalPages, setTotalPages] = useState(1);
+const itemsPerPage =10; // Match your backend limit
 
   const [videoData, setVideoData] = useState({
     title: "",
@@ -26,19 +29,26 @@ export default function AdminDashboard() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem("adminToken");
-    if (!token) router.push("/admin/login");
+useEffect(() => {
+  const token = localStorage.getItem("adminToken");
+  if (!token) router.push("/admin/login");
 
-    if (view === "students") {
-      fetch(`${apiUrl}/api/admin/students`, {
-        headers: { Authorization: `Bearer ${token}` },
+  if (view === "students") {
+    // Added query parameters for pagination
+    fetch(`${apiUrl}/api/admin/students?page=${currentPage}&limit=${itemsPerPage}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // Update to handle the new object structure
+        setStudents(data.students || []); 
+        setTotalPages(data.totalPages || 1);
       })
-        .then((res) => res.json())
-        .then((data) => setStudents(data))
-        .catch(() => console.error("Failed to fetch students"));
-    }
-  }, [view, router]);
+      .catch(() => console.error("Failed to fetch students"));
+  }
+}, [view, router, currentPage]); // Added currentPage as dependency
+
+
 
   const fetchReport = async (studentId: number) => {
     setReportLoading(true);
@@ -367,6 +377,46 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
+              {/* Pagination Controls */}
+<div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-6">
+  <p className="text-xs font-bold text-slate-500">
+    Showing page <span className="text-slate-900">{currentPage}</span> of {totalPages}
+  </p>
+  <div className="flex gap-2">
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage(prev => prev - 1)}
+      className="px-4 py-2 rounded-xl font-black text-xs border-2 border-slate-100 text-slate-400 hover:border-indigo-600 hover:text-indigo-600 disabled:opacity-50 disabled:hover:border-slate-100 disabled:hover:text-slate-400 transition-all"
+    >
+      PREVIOUS
+    </button>
+    
+    {/* Page Numbers */}
+    <div className="flex gap-1">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={`w-10 h-10 rounded-xl font-black text-xs transition-all ${
+            currentPage === page 
+            ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200" 
+            : "text-slate-400 hover:bg-slate-50"
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+    </div>
+
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage(prev => prev + 1)}
+      className="px-4 py-2 rounded-xl font-black text-xs border-2 border-slate-100 text-slate-400 hover:border-indigo-600 hover:text-indigo-600 disabled:opacity-50 disabled:hover:border-slate-100 disabled:hover:text-slate-400 transition-all"
+    >
+      NEXT
+    </button>
+  </div>
+</div>
             </div>
            {selectedStudent && (
   <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex justify-end">
