@@ -298,7 +298,7 @@ export default function AdminDashboard() {
                       type="text"
                       value={videoData.title}
                       required
-                      placeholder="e.g. EPS Topik Grammar"
+                      placeholder="e.g. Cybersecurity Basics"
                       className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({ ...videoData, title: e.target.value })
@@ -313,7 +313,7 @@ export default function AdminDashboard() {
                       type="text"
                       value={videoData.name}
                       required
-                      placeholder="e.g. Mr. Kalinga"
+                      placeholder="e.g. Mr. Sada"
                       className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-slate-100 outline-none focus:border-indigo-600 focus:bg-white transition-all font-black text-slate-900 placeholder:font-bold"
                       onChange={(e) =>
                         setVideoData({ ...videoData, name: e.target.value })
